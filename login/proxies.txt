@@ -1,0 +1,10 @@
+198.23.239.134:6540:znkruahs:qji8izehszsr
+207.244.217.165:6712:znkruahs:qji8izehszsr
+107.172.163.27:6543:znkruahs:qji8izehszsr
+64.137.42.112:5157:znkruahs:qji8izehszsr
+173.211.0.148:6641:znkruahs:qji8izehszsr
+161.123.152.115:6360:znkruahs:qji8izehszsr
+167.160.180.203:6754:znkruahs:qji8izehszsr
+154.36.110.199:6853:znkruahs:qji8izehszsr
+173.0.9.70:5653:znkruahs:qji8izehszsr
+173.0.9.209:5792:znkruahs:qji8izehszsr

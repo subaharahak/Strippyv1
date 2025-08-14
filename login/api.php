@@ -319,6 +319,17 @@ elseif (strpos($result2, '"type":"one-time"')) {
           </div><br>";
 }
 
+elseif (strpos($result2, 'Customer authentication is required to complete this transaction. Please complete the verification steps issued by your payment provider.')) {
+    echo "<div style='background-color: rgba(255, 0, 0, 0.8); padding: 10px; border-radius: 5px; color: white; display: inline-block; box-shadow: 0px 0px 10px 2px rgba(255, 0, 0, 0.7);'>
+             Approved CVV ✅ $cc|$mes|$ano|$cvv
+          </div><br>
+          <div style='background-color: rgba(255, 69, 0, 0.8); padding: 10px; border-radius: 5px; color: white; display: inline-block; box-shadow: 0px 0px 10px 2px rgba(255, 69, 0, 0.7);'>
+            #CVV MATCHED -> PURCHASE REQUIRES 3DS ➝➝ 🙤𝐌𝐇𝐈𝐓𝐙𝐗𝐆🙧 
+          </div><br>
+          <div style='background-color: rgba(0, 0, 139, 0.8); padding: 10px; border-radius: 5px; color: white; display: inline-block; box-shadow: 0px 0px 10px 2px rgba(0, 0, 139, 0.7);'>
+            $bank [$country] - $type
+          </div><br>";
+}
 elseif (strpos($result2, 'security code is incorrect.')) {
     echo "<div style='background-color: rgba(0, 128, 0, 0.8); padding: 10px; border-radius: 5px; color: white; display: inline-block; box-shadow: 0px 0px 10px 2px rgba(0, 255, 0, 0.7);'>
             Aprovada ✅ $cc|$mes|$ano|$cvv
@@ -606,7 +617,17 @@ elseif (strpos($result2, 'Unknown error generating account.')) {
             $bank [$country] - $type
           </div><br>";
 }
-
+elseif (strpos($result2, 'Customer authentication is required to complete this transaction. Please complete the verification steps issued by your payment provider.')) {
+    echo "<div style='background-color: rgba(255, 0, 0, 0.8); padding: 10px; border-radius: 5px; color: white; display: inline-block; box-shadow: 0px 0px 10px 2px rgba(255, 0, 0, 0.7);'>
+            Reprovada ❌ $cc|$mes|$ano|$cvv
+          </div><br>
+          <div style='background-color: rgba(255, 69, 0, 0.8); padding: 10px; border-radius: 5px; color: white; display: inline-block; box-shadow: 0px 0px 10px 2px rgba(255, 69, 0, 0.7);'>
+            #CVV MATCHED -> PURCHASE REQUIRES 3DS ➝➝ 🙤𝐌𝐇𝐈𝐓𝐙𝐗𝐆🙧 
+          </div><br>
+          <div style='background-color: rgba(0, 0, 139, 0.8); padding: 10px; border-radius: 5px; color: white; display: inline-block; box-shadow: 0px 0px 10px 2px rgba(0, 0, 139, 0.7);'>
+            $bank [$country] - $type
+          </div><br>";
+}
 else {
   echo "
   <!-- Opaque button with glowing edges for Reprovada -->

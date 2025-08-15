@@ -727,10 +727,11 @@ else {
 curl_close($ch);
 ob_flush();
 flush();
-echo "<b>1REQ Result:</b> $result1<br><br>";
-echo "<b>2REQ Result:</b> $result2<br><br>";
+//echo "<b>1REQ Result:</b> $result1<br><br>";
+//echo "<b>2REQ Result:</b> $result2<br><br>";
 
 ?>
+
 
 
 

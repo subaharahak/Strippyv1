@@ -3,7 +3,7 @@ session_start();
 
 // Check if user is not logged in
 if(!isset($_SESSION['login'])) {
-    header('LOCATION: /index.php'); // Redirect to login page
+    header('LOCATION: /login/login.php'); // Redirect to login page
     die(); // Stop executing the script
 }
 ?>
@@ -303,5 +303,6 @@ if(!isset($_SESSION['login'])) {
             <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.11/js/mdb.min.js"></script>
         </body>
 </html>
+
 
 

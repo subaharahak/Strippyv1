@@ -111,7 +111,7 @@ $city = $data['results'][0]['location']['city'];
 $street = $data['results'][0]['location']['street']['name'];
 
 // Optional: simulate user delay
-
+ sleep(rand(1, 3)); 
   // Pause to simulate a break in user action
 
 
@@ -157,7 +157,7 @@ curl_setopt($ch, CURLOPT_COOKIEFILE, getcwd() . '/cookie.txt');
 curl_setopt($ch, CURLOPT_COOKIEJAR, getcwd() . '/cookie.txt');
 
 // Insert simulated delay before posting form data
- sleep(rand(1, 2)); // A longer delay to simulate a pause before submission
+ sleep(rand(1, 3)); // A longer delay to simulate a pause before submission
 
 curl_setopt($ch, CURLOPT_POSTFIELDS, 'type=card&card[number]='.$cc.'&card[cvc]='.$cvv.'&card[exp_month]='.$mes.'&card[exp_year]='.$ano.'&guid=cfaed93d-4b66-4a41-ad34-fe9d85613de5785366&muid=413fd995-efee-4627-92dd-c67260375761d7a25a&sid=e62483c3-698b-4c78-8368-6cc85cc8ff7ae4cb1c&pasted_fields=number&payment_user_agent=stripe.js%2F0f795842d4%3B+stripe-js-v3%2F0f795842d4%3B+split-card-element&referrer=https%3A%2F%2Fprovideme.io&time_on_page=102837&client_attribution_metadata[client_session_id]=b69e5a38-ea3a-46ba-9393-87930c31db68&client_attribution_metadata[merchant_integration_source]=elements&client_attribution_metadata[merchant_integration_subtype]=card-element&client_attribution_metadata[merchant_integration_version]=2017&key=pk_live_1a4WfCRJEoV9QNmww9ovjaR2Drltj9JA3tJEWTBi4Ixmr8t3q5nDIANah1o0SdutQx4lUQykrh9bi3t4dR186AR8P00KY9kjRvX&_stripe_account=acct_1PHEaRP9XqsP2YSY');
 
@@ -731,5 +731,6 @@ echo "<b>1REQ Result:</b> $result1<br><br>";
 echo "<b>2REQ Result:</b> $result2<br><br>";
 
 ?>
+
 
 

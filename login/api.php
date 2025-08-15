@@ -43,15 +43,16 @@ function inStr($string, $start, $end, $value) {
 function rebootproxys() {
     // Array of proxies
     $proxyList = [
-     '142.147.128.93:6593:znkruahs:qji8izehszsr',
-'23.95.150.145:6114:znkruahs:qji8izehszsr',
+     '23.95.150.145:6114:znkruahs:qji8izehszsr',
 '198.23.239.134:6540:znkruahs:qji8izehszsr',
 '45.38.107.97:6014:znkruahs:qji8izehszsr',
 '207.244.217.165:6712:znkruahs:qji8izehszsr',
 '107.172.163.27:6543:znkruahs:qji8izehszsr',
+'104.222.161.211:6343:znkruahs:qji8izehszsr',
+'64.137.96.74:6641:znkruahs:qji8izehszsr',
 '216.10.27.159:6837:znkruahs:qji8izehszsr',
 '136.0.207.84:6661:znkruahs:qji8izehszsr',
-'104.222.161.211:znkruahs:qji8izehszsr',
+'142.147.128.93:6593:znkruahs:qji8izehszsr',
     ];
     $myproxy = rand(0, count($proxyList) - 1);
     return $proxyList[$myproxy];
@@ -341,7 +342,17 @@ elseif (strpos($result2, 'security code is incorrect.')) {
             $bank [$country] - $type
           </div><br>";
 }
-
+elseif (strpos($result2, 'security code is incorrect.')) {
+    echo "<div style='background-color: rgba(0, 128, 0, 0.8); padding: 10px; border-radius: 5px; color: white; display: inline-block; box-shadow: 0px 0px 10px 2px rgba(0, 255, 0, 0.7);'>
+            Aprovada ✅ $cc|$mes|$ano|$cvv
+          </div><br>
+          <div style='background-color: rgba(255, 69, 0, 0.8); padding: 10px; border-radius: 5px; color: white; display: inline-block; box-shadow: 0px 0px 10px 2px rgba(255, 69, 0, 0.7);'>
+            #CCN LIVE ➝ PROCESSED $0.50 ➝ 『Payment was Sucessful』 ➝ Order ID:[Unavailable]➝ 🙤𝐌𝐇𝐈𝐓𝐙𝐗𝐆🙧
+          </div><br>
+          <div style='background-color: rgba(0, 0, 139, 0.8); padding: 10px; border-radius: 5px; color: white; display: inline-block; box-shadow: 0px 0px 10px 2px rgba(0, 0, 139, 0.7);'>
+            $bank [$country] - $type
+          </div><br>";
+}
 elseif (strpos($result2, 'security code is invalid.')) {
     echo "<div style='background-color: rgba(0, 128, 0, 0.8); padding: 10px; border-radius: 5px; color: white; display: inline-block; box-shadow: 0px 0px 10px 2px rgba(0, 255, 0, 0.7);'>
             Aprovada ✅ $cc|$mes|$ano|$cvv
@@ -354,7 +365,17 @@ elseif (strpos($result2, 'security code is invalid.')) {
           </div><br>";
 }
 
-
+elseif (strpos($result2, 'security code is invalid.')) {
+    echo "<div style='background-color: rgba(0, 128, 0, 0.8); padding: 10px; border-radius: 5px; color: white; display: inline-block; box-shadow: 0px 0px 10px 2px rgba(0, 255, 0, 0.7);'>
+            Aprovada ✅ $cc|$mes|$ano|$cvv
+          </div><br>
+          <div style='background-color: rgba(255, 69, 0, 0.8); padding: 10px; border-radius: 5px; color: white; display: inline-block; box-shadow: 0px 0px 10px 2px rgba(255, 69, 0, 0.7);'>
+            #CCN LIVE ➝ PROCESSED $0.50 ➝ 『Payment was Sucessful』 ➝ Order ID:[Unavailable]➝ 🙤𝐌𝐇𝐈𝐓𝐙𝐗𝐆🙧
+          </div><br>
+          <div style='background-color: rgba(0, 0, 139, 0.8); padding: 10px; border-radius: 5px; color: white; display: inline-block; box-shadow: 0px 0px 10px 2px rgba(0, 0, 139, 0.7);'>
+            $bank [$country] - $type
+          </div><br>";
+}
 elseif (strpos($result2, 'Your card&#039;s security code is incorrect.')) {
     echo "<div style='background-color: rgba(0, 128, 0, 0.8); padding: 10px; border-radius: 5px; color: white; display: inline-block; box-shadow: 0px 0px 10px 2px rgba(0, 255, 0, 0.7);'>
             Aprovada ✅ $cc|$mes|$ano|$cvv

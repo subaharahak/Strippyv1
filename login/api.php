@@ -3,8 +3,8 @@
 $cookieFilePath = 'cookie.txt';
 
 // Check if the file exists and delete it
-//if (file_exists($cookieFilePath)) {
-  //  unlink($cookieFilePath);
+if (file_exists($cookieFilePath)) {
+   unlink($cookieFilePath);
 //}
 
 error_reporting(0);
@@ -131,6 +131,7 @@ curl_close($ch);
 
 $nonce = GetStr($pageContent, 'name="pmpro_checkout_nonce" value="', '"');
 
+sleep(rand(1, 2));
 // Submit payment details with delay between fields
 $ch = curl_init();
 curl_setopt($ch, CURLOPT_URL, 'https://api.stripe.com/v1/payment_methods');
@@ -721,4 +722,5 @@ echo "<b>1REQ Result:</b> $result1<br><br>";
 echo "<b>2REQ Result:</b> $result2<br><br>";
 
 ?>
+
 

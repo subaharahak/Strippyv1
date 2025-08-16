@@ -89,26 +89,27 @@ $number6 = substr($cc, 0, 6);
 // Fetch random user data with delay
 $proxy = rebootproxys();
 list($proxyIP, $proxyPort, $proxyUser, $proxyPass) = explode(':', $proxy);
-$ch = curl_init();
-curl_setopt($ch, CURLOPT_URL, 'https://randomuser.me/api/?nat=us');
-curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
-curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-curl_setopt($ch, CURLOPT_COOKIE, 1);
-curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:56.0) Gecko/20100101 Firefox/56.0');
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+$ch = curl_init('https://randomuser.me/api/?nat=us&inc=name,location,email,phone');
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_SSL_VERIFYPEER => false,
+    CURLOPT_SSL_VERIFYHOST => false,
+    CURLOPT_FOLLOWLOCATION => true,
+    CURLOPT_USERAGENT => 'Mozilla/5.0'
+]);
 $resposta = curl_exec($ch);
-
 $data = json_decode($resposta, true);
 
-$firstname = $data['results'][0]['name']['first'];
-$lastname = $data['results'][0]['name']['last'];
-$phone = $data['results'][0]['phone'];
-$zip = $data['results'][0]['location']['postcode'];
-$state = $data['results'][0]['location']['state'];
-$email = $data['results'][0]['email'];
-$city = $data['results'][0]['location']['city'];
-$street = $data['results'][0]['location']['street']['name'];
+$user = $data['results'][0];
+$firstname = $user['name']['first'];
+$lastname  = $user['name']['last'];
+$email     = $user['email'];
+$phone     = $user['phone'];
+$zip       = $user['location']['postcode'];
+$state     = $user['location']['state'];
+$city      = $user['location']['city'];
+$street    = $user['location']['street']['name'];
+
 
 // Optional: simulate user delay
 
@@ -722,6 +723,7 @@ echo "<b>1REQ Result:</b> $result1<br><br>";
 echo "<b>2REQ Result:</b> $result2<br><br>";
 
 ?>
+
 
 
 

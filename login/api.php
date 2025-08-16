@@ -746,7 +746,17 @@ elseif (strpos($result2, 'testmode_charges_only')) {
             $bank [$country] - $type
           </div><br>";
 }
-
+ elseif (strpos($result2, 'Nonce Security Check Failed.')) {
+    echo "<div style='background-color: rgba(255, 0, 0, 0.8); padding: 10px; border-radius: 5px; color: white; display: inline-block; box-shadow: 0px 0px 10px 2px rgba(255, 0, 0, 0.7);'>
+            Reprovada ❌ $cc|$mes|$ano|$cvv
+          </div><br>
+          <div style='background-color: rgba(255, 69, 0, 0.8); padding: 10px; border-radius: 5px; color: white; display: inline-block; box-shadow: 0px 0px 10px 2px rgba(255, 69, 0, 0.7);'>
+            Nonce Check Failed, Please Wait For Sometime!! ❌➝➝ 🙤𝐌𝐇𝐈𝐓𝐙𝐗𝐆🙧
+          </div><br>
+          <div style='background-color: rgba(0, 0, 139, 0.8); padding: 10px; border-radius: 5px; color: white; display: inline-block; box-shadow: 0px 0px 10px 2px rgba(0, 0, 139, 0.7);'>
+            $bank [$country] - $type
+          </div><br>";
+}
 elseif (strpos($result2, 'incorrect_cvc')) {
     echo "<div style='background-color: rgba(255, 0, 0, 0.8); padding: 10px; border-radius: 5px; color: white; display: inline-block; box-shadow: 0px 0px 10px 2px rgba(255, 0, 0, 0.7);'>
             Reprovada ❌ $cc|$mes|$ano|$cvv
@@ -944,4 +954,5 @@ flush();
 //echo "<b>2REQ Result:</b> $result2<br><br>";
 
 ?>
+
 

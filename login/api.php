@@ -92,24 +92,25 @@ list($proxyIP, $proxyPort, $proxyUser, $proxyPass) = explode(':', $proxy);
 $ch = curl_init('https://randomuser.me/api/?nat=us&inc=name,location,email,phone');
 curl_setopt_array($ch, [
     CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_FOLLOWLOCATION => true,
     CURLOPT_SSL_VERIFYPEER => false,
     CURLOPT_SSL_VERIFYHOST => false,
-    CURLOPT_FOLLOWLOCATION => true,
     CURLOPT_USERAGENT => 'Mozilla/5.0'
 ]);
 $resposta = curl_exec($ch);
+curl_close($ch);
+
 $data = json_decode($resposta, true);
 
 $user = $data['results'][0];
-$firstname = $user['name']['first'];
-$lastname  = $user['name']['last'];
-$email     = $user['email'];
-$phone     = $user['phone'];
-$zip       = $user['location']['postcode'];
-$state     = $user['location']['state'];
-$city      = $user['location']['city'];
-$street    = $user['location']['street']['name'];
-
+$firstname = $user['name']['first'] ?? '';
+$lastname  = $user['name']['last'] ?? '';
+$email     = $user['email'] ?? '';
+$phone     = $user['phone'] ?? '';
+$zip       = $user['location']['postcode'] ?? '';
+$state     = $user['location']['state'] ?? '';
+$city      = $user['location']['city'] ?? '';
+$street    = $user['location']['street']['name'] ?? '';
 
 // Optional: simulate user delay
 
@@ -723,6 +724,7 @@ echo "<b>1REQ Result:</b> $result1<br><br>";
 echo "<b>2REQ Result:</b> $result2<br><br>";
 
 ?>
+
 
 
 

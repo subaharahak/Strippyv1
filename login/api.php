@@ -353,6 +353,7 @@ curl_close($ch);
 
 $nonce = GetStr($pageContent, 'name="pmpro_checkout_nonce" value="', '"');
 
+ sleep(rand(1, 2));
 // Submit payment details with delay between fields
 $ch = curl_init();
 curl_setopt($ch, CURLOPT_URL, 'https://api.stripe.com/v1/payment_methods');
@@ -943,3 +944,4 @@ flush();
 //echo "<b>2REQ Result:</b> $result2<br><br>";
 
 ?>
+

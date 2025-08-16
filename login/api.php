@@ -5,7 +5,7 @@ $cookieFilePath = 'cookie.txt';
 // Check if the file exists and delete it
 if (file_exists($cookieFilePath)) {
    unlink($cookieFilePath);
-//}
+}
 
 error_reporting(0);
 date_default_timezone_set('Asia/Jakarta');
@@ -722,5 +722,6 @@ echo "<b>1REQ Result:</b> $result1<br><br>";
 echo "<b>2REQ Result:</b> $result2<br><br>";
 
 ?>
+
 
 

